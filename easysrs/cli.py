@@ -1,20 +1,27 @@
 
-import sys
-deckpath = sys.argv[1]
-reviewpath = sys.argv[2]
-
 import cards
-MANAGER = cards.cards(deckpath,reviewpath)
+import sys
 import time
-
-
 import curses
 import os
+
+
+#########
+# card manager 
+##########
+deckpath = sys.argv[1]
+reviewpath = sys.argv[2]
+MANAGER = cards.cards(deckpath,reviewpath)
+
+
+##############
+#  main loop
+###############
+
 def main(win):
     win.nodelay(True)
     key=""
-
-    STATE = "Q"
+    STATE = "showQuestion"
     win.clear()                
     win.addstr(MANAGER.getq())
 
@@ -24,22 +31,21 @@ def main(win):
            key = win.getkey()         
            if str(key) =="q" or key==os.linesep:
                 break
+           
 
-           if STATE == "Q":
+           if STATE == "showQuestion":
                 win.clear()                
-                STATE = "A"
+                STATE = "showAnswer"
                 win.addstr(MANAGER.getaq())
-                
-           if STATE == "A":
+
+           if STATE == "showAnswer":
                key2=str(key)
                MANAGER.answer(int(key2))
-               STATE = "Q"
+               STATE = "showQuestion"
                win.clear()                
                win.addstr(MANAGER.getq()) 
 
         except Exception as e:
-           # No input   
-           #win.addstr("ERRER")
            pass
            
 

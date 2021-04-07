@@ -5,7 +5,7 @@ import os
 import mytime
 '''
 IDEA IS THIS:
-    cards: hash:[data]
+    cards: hash:{q,a,sort}
     reviews: hash: duedate, difficulty 
 
     then there are functions: 
@@ -45,7 +45,7 @@ class cards:
 
 
     #############
-    # dayly biz
+    # daily biz
     ################
     def save(self):
         ba.jdumpfile(self.reviews,self.store)
