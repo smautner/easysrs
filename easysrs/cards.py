@@ -7,14 +7,14 @@ jloadfile = lambda filename:  json.loads(open(filename,'r').read())
 
 '''
 IDEA IS THIS:
-    cards: hash:{q,a,sort}
-    reviews: hash: duedate, difficulty 
-
-    then there are functions: 
-
-    buildqueue: [hash] # makes a list of hashes to review ordered by duedate
+    cards:    hash:{q,a,sort}
+    reviews:  hash:{duedate, ease} 
+    queue: [hash] # list of hashes of cards to review today ordered by sort field of the cards
+   
+   
+    getq()   # return card.q for the card on top of the queue
+    getaq()  # returns card.q and card.a
     answer() # answers the top hash
-    question() # retrieves the card of the tophash
 '''
 
 
