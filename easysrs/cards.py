@@ -1,8 +1,10 @@
 
-import basics as ba
 import os
-
 import mytime
+import json
+jdumpfile = lambda thing, filename:  open(filename,'w').write(json.dumps(thing))
+jloadfile = lambda filename:  json.loads(open(filename,'r').read())
+
 '''
 IDEA IS THIS:
     cards: hash:{q,a,sort}
@@ -21,11 +23,11 @@ class cards:
     # init 
     ###############
     def __init__(self, deckpath, reviewpath):
-        self.cards = ba.jloadfile(deckpath)
+        self.cards = jloadfile(deckpath)
         self.store = reviewpath
 
         if os.path.exists(reviewpath):
-            self.reviews  = ba.jloadfile(reviewpath)
+            self.reviews  = jloadfile(reviewpath)
         else:
             self.reviews={}
         self.buildqueue()
@@ -48,7 +50,7 @@ class cards:
     # daily biz
     ################
     def save(self):
-        ba.jdumpfile(self.reviews,self.store)
+        jdumpfile(self.reviews,self.store)
 
     def reshedule(self,card):
             ease  =  self.reviews[card]['ease']
