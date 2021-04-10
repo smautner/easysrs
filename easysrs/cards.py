@@ -60,13 +60,13 @@ class cards:
     def getq(self):
         if self.q:
             card = self.cards[self.q[-1]]
-            return card['q']
+            return card['q']+"\n\n"
         else:
             return "no questions left"
 
     def getaq(self):
         card = self.cards[self.q[-1]]
-        return card['q']+'\n\n'+card['a']+"\n\n 1-noknow, 2-wonky, 3-success"
+        return card['q']+'\n\n'+card['a']+"\n\n 1-noknow, 2-wonky, 3-success\n"
 
 
     def answer(self, a):
