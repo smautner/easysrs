@@ -2,7 +2,7 @@
 import cards
 import sys
 import time
-import curses
+from getch import getch, pause
 import os
 
 
@@ -14,39 +14,22 @@ reviewpath = sys.argv[2]
 MANAGER = cards.cards(deckpath,reviewpath)
 
 
+# manager hjas getaq answer(int) and getq()
+
 ##############
-#  main loop
-###############
+# MAINLOOP
+#############
 
-def main(win):
-    win.nodelay(True)
-    key=""
-    STATE = "showQuestion"
-    win.clear()                
-    win.addstr(MANAGER.getq())
 
-    while 1:          
-        time.sleep(.1)
-        try:                 
-           key = win.getkey()         
-           if str(key) =="q" or key==os.linesep:
-                break
-           
+stop=False
+while not stop: 
+    print(MANAGER.getq())
+    pause()
+    print(MANAGER.getaq())
+    ch = getch()
+    if ch == 'q':
+        break
+    MANAGER.answer(int(ch))
 
-           if STATE == "showQuestion":
-                win.clear()                
-                STATE = "showAnswer"
-                win.addstr(MANAGER.getaq())
 
-           if STATE == "showAnswer":
-               key2=str(key)
-               MANAGER.answer(int(key2))
-               STATE = "showQuestion"
-               win.clear()                
-               win.addstr(MANAGER.getq()) 
 
-        except Exception as e:
-           pass
-           
-
-curses.wrapper(main)
